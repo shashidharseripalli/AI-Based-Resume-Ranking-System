@@ -20,27 +20,6 @@
     </section>
 
     <section class="panel reveal">
-      <h2>Backend Settings</h2>
-      <div class="grid two">
-        <label class="field">
-          <span>API Base URL</span>
-          <input id="apiBase" type="text" value="http://localhost:8000" placeholder="http://localhost:8000">
-        </label>
-        <div class="weights">
-          <label class="field">
-            <span>TF-IDF Weight</span>
-            <input id="tfidfWeight" type="number" step="0.1" min="0" max="1" value="0.8">
-          </label>
-          <label class="field">
-            <span>Keyword Weight</span>
-            <input id="keywordWeight" type="number" step="0.1" min="0" max="1" value="0.2">
-          </label>
-        </div>
-      </div>
-      <p class="hint">Endpoint used: <code>POST /api/rank</code></p>
-    </section>
-
-    <section class="panel reveal">
       <h2>Job Description</h2>
       <label class="field">
         <span>Role Requirements</span>
@@ -49,11 +28,11 @@
     </section>
 
     <section class="panel reveal">
-      <div class="row">
-        <h2>Candidate Resumes</h2>
-        <button id="addCandidateBtn" type="button" class="btn secondary">Add Candidate</button>
+      <div class="row-actions">
+        <input id="resumeUploadInput" type="file" accept=".pdf,.doc,.docx,.txt,.md,.text,.csv,.json,.log,.rtf,text/plain,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" multiple hidden>
+        <button id="uploadResumesBtn" type="button" class="btn secondary">Upload All Resumes</button>
       </div>
-      <div id="candidateList" class="candidate-list"></div>
+      <p id="uploadSummary" class="status">No resumes uploaded yet.</p>
     </section>
 
     <section class="actions reveal">
@@ -71,24 +50,8 @@
     </section>
   </main>
 
-  <template id="candidateTemplate">
-    <article class="candidate-card">
-      <div class="grid two">
-        <label class="field">
-          <span>Candidate ID</span>
-          <input type="text" class="candidate-id" placeholder="cand_001">
-        </label>
-        <div class="controls">
-          <button type="button" class="btn ghost remove-btn">Remove</button>
-        </div>
-      </div>
-      <label class="field">
-        <span>Resume Text</span>
-        <textarea rows="4" class="resume-text" placeholder="Paste resume summary or full text..."></textarea>
-      </label>
-    </article>
-  </template>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://unpkg.com/mammoth@1.8.0/mammoth.browser.min.js"></script>
   <script src="./app.js"></script>
 </body>
 </html>
