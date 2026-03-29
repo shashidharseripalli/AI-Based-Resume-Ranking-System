@@ -370,6 +370,21 @@ function escapeHtml(raw) {
     .replaceAll("'", "&#39;");
 }
 
+function buildNetworkErrorMessage(error, apiBase) {
+  const raw = String(error?.message || "").toLowerCase();
+  const isNetworkLike =
+    error instanceof TypeError ||
+    raw.includes("failed to fetch") ||
+    raw.includes("networkerror") ||
+    raw.includes("load failed");
+
+  if (!isNetworkLike) {
+    return error?.message || "Failed to fetch rankings from backend.";
+  }
+
+  return `Could not reach backend at ${apiBase}/api/rank. Start your backend server on http://localhost:8000 and ensure CORS allows your frontend origin.`;
+}
+
 async function rankCandidates() {
   const jobDescription = jobDescriptionEl.value.trim();
   const resumes = readCandidates();
@@ -427,7 +442,7 @@ async function rankCandidates() {
     renderResults(results);
     setStatus(`Received ${Array.isArray(results) ? results.length : 0} ranked candidates.`);
   } catch (error) {
-    setStatus(error.message || "Failed to fetch rankings from backend.", true);
+    setStatus(buildNetworkErrorMessage(error, apiBase), true);
   } finally {
     rankBtn.disabled = false;
   }
