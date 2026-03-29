@@ -34,6 +34,30 @@ python -m venv venv
 .\venv\Scripts\python -m pytest -q
 ```
 
+## Frontend (HTML/CSS/JS)
+
+A ready-to-use frontend is available in `frontend/`:
+
+- `frontend/index.html`
+- `frontend/styles.css`
+- `frontend/app.js`
+
+Open `frontend/index.html` in a browser, then set your backend base URL (default: `http://localhost:8000`).
+
+The frontend sends:
+
+- `POST /api/rank`
+- JSON body:
+  - `job_description: string`
+  - `resumes: [{ candidate_id: string, resume_text: string }]`
+  - `tfidf_weight: number`
+  - `keyword_weight: number`
+
+It accepts either:
+
+- an array response (`[ { candidate_id, score, ... } ]`)
+- or an object with `results` array (`{ "results": [ ... ] }`)
+
 ## Core API
 
 Use `core.ranker.rank_resumes`:
